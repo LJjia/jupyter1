@@ -95,6 +95,6 @@ README.md
 
 git add上传本地项目所有变化的命令三种有 git add -A、git add -u、git add .
 
-git add -A  提交所有变化
+git add -A  提交所有变化，可以用于第一次创建仓库时提交所有文件
 git add -u  提交被修改(modified)和被删除(deleted)文件，不包括新文件(new)
 git add .  提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件
