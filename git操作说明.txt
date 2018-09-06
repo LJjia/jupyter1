@@ -98,3 +98,9 @@ git add上传本地项目所有变化的命令三种有 git add -A、git add -u、git add .
 git add -A  提交所有变化，可以用于第一次创建仓库时提交所有文件
 git add -u  提交被修改(modified)和被删除(deleted)文件，不包括新文件(new)
 git add .  提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件
+
+
+删除本地仓库
+在本地仓库的目录下调用命令行删除根目录下的.git文件夹，输入
+find . -name ".git" | xargs rm -Rf
+这样本地仓库就清除了，像下面这样，master不见了。
