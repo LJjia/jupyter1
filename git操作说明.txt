@@ -104,3 +104,17 @@ git add .  提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件
 在本地仓库的目录下调用命令行删除根目录下的.git文件夹，输入
 find . -name ".git" | xargs rm -Rf
 这样本地仓库就清除了，像下面这样，master不见了。
+
+
+遇到的问题
+本地库提交到远程库
+git push错误failed to push some refs to的解决
+使用指令
+git pull --rebase origin master
+如果出现提示fatal: Couldn't find remote ref matser
+可以先
+$ git pull origin master
+$git pull --rebase origin master
+之后提交远程库
+$ git push -u origin master
+
