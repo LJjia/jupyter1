@@ -113,8 +113,10 @@ git push错误failed to push some refs to的解决
 git pull --rebase origin master
 如果出现提示fatal: Couldn't find remote ref matser
 可以先
-$ git pull origin master
+$ git pull origin master  //先把主线代码拉到本地来
 $git pull --rebase origin master
 之后提交远程库
 $ git push -u origin master
-
+之后使用
+$ git push  origin master
+即可
