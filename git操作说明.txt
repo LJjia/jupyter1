@@ -83,7 +83,7 @@ $ git push origin master
 
 
 下一步是用命令git clone克隆一个本地库：将远程库复制到自己的电脑上
-$ git clone git@github.com:michaelliao/gitskills.git
+$ git clone git@github.com:LJjia/Warehouse.git
 
 注意把Git库的地址换成你自己的，然后进入gitskills目录看看，已经有README.md文件了：
 $ cd gitskills
@@ -120,3 +120,8 @@ $ git push -u origin master
 之后使用
 $ git push  origin master
 即可
+
+
+要查看当前配置有哪些远程仓库，可以用 git remote 命令，它会列出每个远程库的简短名字
+$ git  remote 
+origin
