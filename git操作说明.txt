@@ -125,3 +125,46 @@ $ git push  origin master
 要查看当前配置有哪些远程仓库，可以用 git remote 命令，它会列出每个远程库的简短名字
 $ git  remote 
 origin
+
+
+
+
+git fetch 的简单用法:更新远程代码到本地仓库
+
+方式一
+1. 查看远程仓库
+$ git remote -v
+
+2 ,从远程获取最新版本到本地
+$ git fetch origin master
+From https://github.com/com360/android-app
+ * branch            master     -> FETCH_HEAD
+$ git fetch origin master 这句的意思是：从远程的origin仓库的master分支下载代码到本地的origin master
+
+3. 比较本地的仓库和远程参考的区别
+$ git log -p master.. origin/master
+
+4. 把远程下载下来的代码合并到本地仓库，远程的和本地的合并
+$ git merge origin/master
+
+
+以上的方式有点不好理解，大家可以使用下面的方式，并且很安全
+方式二
+1.查看远程分支，和上面的第一步相同
+
+2. 从远程获取最新版本到本地
+$ git fetch origin master:temp
+git fetch origin master:temp 这句命令的意思是：从远程的origin仓库的master分支下载到本地并新建一个分支temp
+
+比较本地的仓库和远程参考的区别  （修改很混乱时 一般不要用这句话）
+$ git diff temp
+命令的意思是：比较master分支和temp分支的不同
+
+4. 合并temp分支到master分支
+$ git merge temp
+
+5.如果不想要temp分支了，可以删除此分支
+$ git branch -d temp
+如果该分支没有合并到主分支会报错，可以用以下命令强制删除git branch -D <分支名> 
+在这里是
+$ git branch -D temp
