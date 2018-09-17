@@ -1,0 +1,173 @@
+首先切换到当前目录下
+可以使用如下命令
+$ mkdir learngit
+$ cd learngit
+$ pwd
+
+之后输入命令
+$ git init
+创建本地仓库
+
+把文件添加到仓库 一次可以添加多个文件
+$ git add readme.txt
+
+向仓库提交文件   -m 后面为此次提交的说明
+$ git commit -m "wrote a readme file"
+
+
+现在，运行git status命令看看结果：
+$ git status
+可以随时掌握当前文件改动情况
+
+可以知道哪些地方进行修改
+$ git diff readme.txt 
+
+获得最近提交日志
+$ git log
+加上参数后获得版本号 如下
+$ git log --pretty=oneline
+1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -> master) append GPL
+e475afc93c209a690c39c13a46716e8fa000c366 add distributed
+eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0 wrote a readme file
+
+Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版本，也就是最新的提交
+1094adb...（注意我的提交ID和你的肯定不一样），上一个版本就是HEAD^，上上一个版本
+就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
+
+使用命令回退到上一个版本
+$ git reset --hard HEAD^
+如果想回到最新修改的版本只要上面的命令行窗口还没有被关掉，你就可以顺着往上找啊找啊，
+找到那个append GPL的commit id是1094adb...，于是就可以指定回到未来的某个版本：
+$ git reset --hard 1094a
+HEAD is now at 83b0afe append GPL
+版本号没必要写全，前几位就可以了，Git会自动去找
+
+你回退到了某个版本，关掉了电脑，第二天早上就后悔了，想恢复到新版本怎么办？找不到新版本的commit id怎么办？
+
+在Git中，总是有后悔药可以吃的。当你用$ git reset --hard HEAD^回退到add distributed版本时，
+再想恢复到append GPL，就必须找到append GPL的commit id。Git提供了一个命令git reflog用来记录
+你的每一次命令：
+
+Git同样告诉我们，用命令git reset HEAD <file>可以把暂存区的修改撤销掉（unstage），重新放回工作区：
+$ git reset HEAD readme.txt
+
+命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
+
+
+
+一般情况下，你通常直接在文件管理器中把没用的文件删了，或者用rm命令删了：
+$ rm test.txt
+输入git status命令查看文件是否被删除，如果确实要从版本库中删除该文件，
+那就用命令git rm删掉，并且git commit：
+
+另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：
+$ git checkout -- test.txt
+
+
+添加远程库的方法：
+首先github上面要先建立好自己的仓库，并且将本机密钥输入进去
+之后输入命令
+$ git remote add origin git@github.com:LJjia/Warehouse.git
+表示关联github上的库为远程库。远程库的名字就是origin
+
+把本地库的内容推送到远程库，第一次使用时需要加上-u命令。Git不但会把本地的master分支
+内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在
+以后的推送或者拉取时就可以简化命令
+$ git push -u origin master
+
+从现在起，只要本地作了提交，就可以通过命令：
+$ git push origin master
+
+
+下一步是用命令git clone克隆一个本地库：将远程库复制到自己的电脑上
+$ git clone git@github.com:LJjia/Warehouse.git
+
+注意把Git库的地址换成你自己的，然后进入gitskills目录看看，已经有README.md文件了：
+$ cd gitskills
+$ ls
+README.md
+
+
+
+
+git add上传本地项目所有变化的命令三种有 git add -A、git add -u、git add .
+
+git add -A  提交所有变化，可以用于第一次创建仓库时提交所有文件
+git add -u  提交被修改(modified)和被删除(deleted)文件，不包括新文件(new)
+git add .  提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件
+
+
+删除本地仓库
+在本地仓库的目录下调用命令行删除根目录下的.git文件夹，输入
+find . -name ".git" | xargs rm -Rf
+这样本地仓库就清除了，像下面这样，master不见了。
+
+
+遇到的问题
+本地库提交到远程库
+git push错误failed to push some refs to的解决
+使用指令
+git pull --rebase origin master
+如果出现提示fatal: Couldn't find remote ref matser
+可以先
+$ git pull origin master  //先把主线代码拉到本地来
+$git pull --rebase origin master
+之后提交远程库
+$ git push -u origin master
+之后使用
+$ git push  origin master
+即可
+
+
+要查看当前配置有哪些远程仓库，可以用 git remote 命令，它会列出每个远程库的简短名字
+$ git  remote 
+origin
+
+
+
+
+git fetch 的简单用法:更新远程代码到本地仓库
+
+方式一
+1. 查看远程仓库
+$ git remote -v
+
+2 ,从远程获取最新版本到本地
+$ git fetch origin master
+From https://github.com/com360/android-app
+ * branch            master     -> FETCH_HEAD
+$ git fetch origin master 这句的意思是：从远程的origin仓库的master分支下载代码到本地的origin master
+
+3. 比较本地的仓库和远程参考的区别
+$ git log -p master.. origin/master
+
+4. 把远程下载下来的代码合并到本地仓库，远程的和本地的合并
+$ git merge origin/master
+
+
+以上的方式有点不好理解，大家可以使用下面的方式，并且很安全
+方式二
+1.查看远程分支，和上面的第一步相同
+
+2. 从远程获取最新版本到本地
+$ git fetch origin master:temp
+git fetch origin master:temp 这句命令的意思是：从远程的origin仓库的master分支下载到本地并新建一个分支temp
+
+比较本地的仓库和远程参考的区别  （修改很混乱时 一般不要用这句话）
+$ git diff temp
+命令的意思是：比较master分支和temp分支的不同
+
+4. 合并temp分支到master分支
+$ git merge temp
+
+5.如果不想要temp分支了，可以删除此分支
+$ git branch -d temp
+如果该分支没有合并到主分支会报错，可以用以下命令强制删除git branch -D <分支名> 
+在这里是
+$ git branch -D temp
+
+查看当前目录下所有文件
+$ ls
