@@ -176,3 +176,8 @@ Git在合并时遇到unrelated history提示时无法merge
 合并时加上后缀
 git merge <对应的分支> --allow-unrelated-histories
 强制使得可以合并即可
+
+
+git 修改远程库
+git remote rm origin //先删除
+git remote add origin git@github.com:LJjia:jupyter1.git//重新添加
